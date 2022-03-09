@@ -1,32 +1,64 @@
-import re
+import re,time
+import pandas as pd
+from data import Data as da
 
 class Generators:
-    @staticmethod
+    
+
+
     def generator_iter_mode_1(my_list):
-        list_t = my_list
-        while len(list_t) > 0:
-            word_h = list_t[0]
-            len_list_ant = len(list_t)
-            list_t = list_t[1::]
-            list_to_str = "  ".join(list_t)
-            list_to_str = " "+str(list_to_str)+" "
-            patron = r'(\s'+word_h+'\s)+'
-            list_to_str = re.sub(patron,"",list_to_str)
-            list_to_str = list_to_str.strip()
-            if not len(list_to_str) == 0:
-                list_to_str = list_to_str.replace("  ",",").replace(" ","")
-                list_t = list_to_str.split(",")
-            else:
-                list_t = []
-            value = int(len_list_ant) - len(list_t)
-            yield word_h,value
+        """
+            Function generator iterable Mode 1
+            parameters:
+            ___________
+                        my_list (list): A list to find words
+            Returns:
+            ___________
+                        (tuple) (word (str): word match in list, value (int): number of word searching)
+        """
+        temp_list = my_list
+        while len(temp_list) > 0:
+            word = temp_list[0]
+            len_list_ant = len(temp_list)
+            temp_list = da.generate_new_list(temp_list,word)
+            value = int(len_list_ant) - len(temp_list)
+            yield word,value
     
     @staticmethod
     def generator_iter_mode_2(my_list):
-        list_t = my_list
-        while len(list_t) > 0:
-            word_h = list_t[0]
-            len_list_ant = len(list_t)
-            list_t = [i for i in list_t if i != word_h]
-            value = int(len_list_ant) - len(list_t)
-            yield word_h,value
+        """
+            Function generator iterable Mode 2
+            parameters:
+            ___________
+                        my_list (list): A list to find words
+            Returns:
+            ___________
+                        (tuple) (word (str): word match in list, value (int): number of word searching)
+        """
+        temp_list = my_list
+        while len(temp_list) > 0:
+            word = temp_list[0]
+            len_list_ant = len(temp_list)
+            temp_list = [i for i in temp_list if i != word]
+            value = int(len_list_ant) - len(temp_list) 
+            yield word,value
+    
+    
+    @staticmethod
+    def generator_iter_mode_3(my_list):
+        """
+            Function generator iterable Mode 2
+            parameters:
+            ___________
+                        my_list (list): A list to find words
+            Returns:
+            ___________
+                        (tuple) (word (str): word match in list, value (int): number of word searching)
+        """
+        temp_list = pd.DataFrame(my_list,columns=["words"])
+        while len(temp_list) > 0:
+            word = temp_list.iloc[0]['words']
+            len_list_ant = len(temp_list)
+            temp_list = temp_list[temp_list['words'] != word ].reset_index(drop=True)
+            value = int(len_list_ant) - len(temp_list) 
+            yield word,value
