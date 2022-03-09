@@ -75,7 +75,7 @@ def run_generators(n_cases,iterations):
         }
     return result
 
-time_results = run_generators(20,10)
+time_results = run_generators(10,10)
 grafication.generate_grafics(time_results)
 
 
