@@ -39,13 +39,13 @@ class Aplication(metaclass=Singleton):
             if len(data) > 0 or data == None:
                 self.data_list = Data(data).data_list
                 if mode == "1":
-                    self.generator_mode_1()
+                    self.generator_mode_1() #n
                 if mode == "2":
-                    self.generator_mode_2()
+                    self.generator_mode_2() #n^2
                 if mode == "3":
-                    self.generator_mode_3()
-                print(f'result: {self.result}')
-                print(f'Sorted Result: {self.sorted_result}')
+                    self.generator_mode_3() #n^2
+                sorted_result = Data.sorted_values(self.result) #n
+                self.sorted_result = { k:self.result[k] for k in sorted_result } #n
                 return self.sorted_result
             else:
                 raise HTTPException(status_code=404, detail="Invalid data")
@@ -53,19 +53,20 @@ class Aplication(metaclass=Singleton):
     def generator_mode_1(self):
         for w,v in gen.generator_iter_mode_1(self.data_list):
             self.result[w] = v
-        sorted_result = Data.sorted_values(self.result)
-        self.sorted_result = { k:self.result[k] for k in sorted_result }
+        
     
     def generator_mode_2(self):
         for w,v in gen.generator_iter_mode_2(self.data_list):
             self.result[w] = v
-        sorted_result = Data.sorted_values(self.result)
-        self.sorted_result = { k:self.result[k] for k in sorted_result }
+
+    
     def generator_mode_3(self):
         for w,v in gen.generator_iter_mode_3(self.data_list):
             self.result[w] = v
-        sorted_result = Data.sorted_values(self.result)
-        self.sorted_result = { k:self.result[k] for k in sorted_result }
+
+
+
+
 if __name__ == '__main__':
     a = Aplication()
     app = a.app
