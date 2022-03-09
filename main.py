@@ -1,9 +1,9 @@
-from faulthandler import dump_traceback_later
-from fastapi import FastAPI
-import time,uvicorn
+from fastapi import FastAPI, HTTPException
+import time,uvicorn,re
 from config import Config
 from singleton import Singleton
 from data import Data
+from generators import Generators as gen
 
 
 
@@ -15,23 +15,28 @@ class Aplication(metaclass=Singleton):
             version='1.0.1')
         self.result = {}
         self.data = None
+        self.alg_complex = {'1':0,'2':0}
 
 
         @self.app.post('/')
-        async def index(data):
-            self.data_list = Data(data).data_list
-            def generator_iter(my_list):
-                list_t = my_list
-                while len(list_t) > 0:
-                    word = list_t[0]
-                    len_list_ant = len(list_t)
-                    list_t = [i for i in list_t if i != word]
-                    self.result[word] = int(len_list_ant) - len(list_t)
-                    yield list_t
-            for i in generator_iter(self.data_list):
-                pass
-            print(self.result)
-            return self.result
+        async def index(data,mode=1):
+            print("Mode "+str(mode))
+            if len(data) > 0:
+                self.data_list = Data(data).data_list
+                
+
+
+                print(str(type(self.data_list)))
+                if mode == "1":
+                    for w,v in gen.generator_iter_mode_1(self.data_list):
+                        self.result[w] = v
+                if mode == "2":
+                    for w,v in gen.generator_iter_mode_2(self.data_list):
+                        self.result[w] = v
+                print(self.result)
+                return self.result
+            else:
+                raise HTTPException(status_code=404, detail="Invalid data")
 
 if __name__ == '__main__':
     a = Aplication()
