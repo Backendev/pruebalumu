@@ -2,6 +2,13 @@ import matplotlib
 import matplotlib.pyplot as plt
 
 def generate_grafics(time_results):
+    """
+        Function for grafic time, inputs relation  
+        parameters:
+        ___________
+                    time_result (dict): A dict whit times foreach input
+        
+    """
     list_times_mode_count = len(time_results)
     list_times_mode_1 = [v['mode_1']['time'] for v in [kv for ki,kv in time_results.items()]]
     list_times_mode_2 = [v['mode_2']['time'] for v in [kv for ki,kv in time_results.items()]]

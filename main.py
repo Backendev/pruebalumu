@@ -25,7 +25,7 @@ class Aplication():
         @self.app.post('/')
         async def index(data,mode=1):
             """
-                Function generator iterable Mode 1
+                Endpoint unique path 
                 parameters:
                 ___________
                             data (str): A string whit words separate whit comas
@@ -38,16 +38,15 @@ class Aplication():
             if len(data) > 0 or data == None:
                 self.data_list = Data(data).data_list
                 if mode == "1":
-                    self.generator_mode_1() #n
-                if mode == "2":
+                    self.generator_mode_1() #n^2
+                elif mode == "2":
                     self.generator_mode_2() #n^2
-                if mode == "3":
+                elif mode == "3":
                     self.generator_mode_3() #n^2
+                else:
+                    raise HTTPException(status_code=404, detail="Invalid mode, modes: 1,2 or 3")
                 sorted_result = Data.sorted_values(self.result) #n
-                def make_sorted_result(self,x):
-                    return {"word":x,"count":self.result[x]}
-                #self.sorted_result = { "word":k ,"count":self.result[k] for k in sorted_result } #n
-                self.sorted_result = list(map(lambda x: {"word":x,"count":self.result[x]},sorted_result))
+                self.sorted_result = list(map(lambda x: {"word":x,"count":self.result[x]},sorted_result))#n
                 return self.sorted_result
             else:
                 raise HTTPException(status_code=404, detail="Invalid data")

@@ -27,25 +27,31 @@ class Data():
     def data_list(self):
         return self.__data_list
 
-
     @staticmethod
     def sorted_values(dic):
-        def particion(lista, izq, der):
-            pivote = dic[lista[der]] #1
-            indice = izq #1
-            for i in range(izq, der): #n
-                if dic[lista[i]] >= pivote: #n
-                    lista[indice], lista[i] = lista[i], lista[indice] #n
-                    indice += 1 #n
-            lista[indice], lista[der] = lista[der], lista[indice] #1
-            return indice
+        """
+            Sorted Function to list 
+            Parameters:
+            _______
+                    dic (dict): Dict whit results
+        """
+        def partition(res_list, left, right):
+            pivot = dic[res_list[right]] #1
+            index = left #1
+            for i in range(left, right): #n
+                if dic[res_list[i]] >= pivot: #n
+                    res_list[index], res_list[i] = res_list[i], res_list[index] #n
+                    index += 1 #n
+            res_list[index], res_list[right] = res_list[right], res_list[index] #1
+            return index
 
-        def quicksort(lista, izq, der):
-            if izq < der: #1
-                pivote_indice = particion(lista, izq, der) #n^2
-                quicksort(lista, izq, pivote_indice-1)#n
-                quicksort(lista, pivote_indice+1, der)#n
-        lista = list(dic.keys())#1
-        quicksort(lista, 0, len(lista)-1)#1
-        return lista
+        def quicksort(res_list, left, right):
+            if left < right: #1
+                pivot_i = partition(res_list, left, right) #n^2
+                quicksort(res_list, left, pivot_i-1)#n
+                quicksort(res_list, pivot_i+1, right)#n
+        res_list = list(dic.keys())#1
+        quicksort(res_list, 0, len(res_list)-1)#1
+        return res_list
+    
 

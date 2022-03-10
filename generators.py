@@ -6,7 +6,7 @@ class Generators:
     @staticmethod
     def generator_iter_mode_1(my_list):
         """
-            Function generator iterable Mode 2
+            Function generator iterable Mode 1
             parameters:
             ___________
                         my_list (list): A list to find words
@@ -24,7 +24,7 @@ class Generators:
 
     def generator_iter_mode_2(my_list):
         """
-            Function generator iterable Mode 1
+            Function generator iterable Mode 2
             parameters:
             ___________
                         my_list (list): A list to find words
@@ -49,7 +49,7 @@ class Generators:
     @staticmethod
     def generator_iter_mode_3(my_list):
         """
-            Function generator iterable Mode 2
+            Function generator iterable Mode 3
             parameters:
             ___________
                         my_list (list): A list to find words
