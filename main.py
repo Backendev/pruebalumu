@@ -2,13 +2,12 @@ from fastapi import FastAPI, HTTPException
 import uvicorn,re
 from datetime import datetime
 from config import Config
-from singleton import Singleton
 from data import Data
 from generators import Generators as gen
 
 
 
-class Aplication(metaclass=Singleton):
+class Aplication():
     """
         Function fastApi Aplication generate
         
@@ -45,7 +44,10 @@ class Aplication(metaclass=Singleton):
                 if mode == "3":
                     self.generator_mode_3() #n^2
                 sorted_result = Data.sorted_values(self.result) #n
-                self.sorted_result = { k:self.result[k] for k in sorted_result } #n
+                def make_sorted_result(self,x):
+                    return {"word":x,"count":self.result[x]}
+                #self.sorted_result = { "word":k ,"count":self.result[k] for k in sorted_result } #n
+                self.sorted_result = list(map(lambda x: {"word":x,"count":self.result[x]},sorted_result))
                 return self.sorted_result
             else:
                 raise HTTPException(status_code=404, detail="Invalid data")

@@ -3,7 +3,25 @@ from generators import Generators as gen
 import os,random
 import time
 import grafication
+import argparse
 
+
+parser = argparse.ArgumentParser(description='Probar soluciones en relacion tiempo cantidad de entradas')
+parser.add_argument('-c', '--cases', type=int, help='N° Casos a enviar')
+parser.add_argument('-i', '--iter', type=int, help='N° de iteraciones con variacion en los casos')
+args = parser.parse_args()
+
+if args.cases == None:
+    p_cases = 100
+else:
+    p_cases = args.cases
+if args.iter == None:
+    p_iter = 10
+else:
+    p_iter = args.iter
+
+
+print(f"Analizando {p_cases} Casos; en {p_iter} iteraciones")
 entrances = "lumu illuminates attacks and adversaries all Lorem ipsum dolor sit amet consectetur adipiscing elit Proin mollis ex tellus non ullamcorper vehicula ut Nunc tincidunt "
 l_entrances = entrances.split(" ")
 pid_process = os.getpid()
@@ -75,7 +93,7 @@ def run_generators(n_cases,iterations):
         }
     return result
 
-time_results = run_generators(10,10)
+time_results = run_generators(p_cases,p_iter)
 grafication.generate_grafics(time_results)
 
 

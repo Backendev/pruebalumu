@@ -1,17 +1,14 @@
 import uvicorn
-from singleton import Singleton
 
-class Config(metaclass=Singleton):
+class Config():
     def __init__(self):
         """
             Configuration for Fast Api Aplication 
             
         """
         self.host = "localhost"
-        self.port = 8000
-        self.log_level="info"
-        self.reload = True
-        self.workers = "2"
+        self.port = 3000
+        
     def run_server(self,app):
         """
             Function for run uvicorn server 

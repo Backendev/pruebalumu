@@ -1,10 +1,8 @@
-import re,time
 import pandas as pd
-from data import Data as da
+import re
+
 
 class Generators:
-    
-
     @staticmethod
     def generator_iter_mode_1(my_list):
         """
@@ -20,9 +18,9 @@ class Generators:
         while len(temp_list) > 0: #n
             word = temp_list[0] #n
             len_list_ant = len(temp_list) #n
-            value = int(len_list_ant) - len(temp_list)  #n
             temp_list = [i for i in temp_list if i != word] #n^2
-            yield word,value #n^2
+            value = int(len_list_ant) - len(temp_list) #n
+            yield word,value 
 
     def generator_iter_mode_2(my_list):
         """
@@ -38,10 +36,16 @@ class Generators:
         while len(temp_list) > 0: #n
             word = temp_list[0] #n
             len_list_ant = len(temp_list) #n
-            temp_list = da.generate_new_list(temp_list,word) #1
-            value = int(len_list_ant) - len(temp_list) #1
+            temp_list = temp_list[1::] #1
+            list_to_str = " "+str("  ".join(temp_list))+" " #1
+            list_to_str = str(re.sub(r'(\s'+word+'\s)+',"",list_to_str)).strip() #n
+            if not len(list_to_str) == 0: #1
+                temp_list = list_to_str.replace("  ",",").replace(" ","").split(",") #1
+            else: #1
+                temp_list = [] #1
+            value = int(len_list_ant) - len(temp_list) #n
             yield word,value
-            
+
     @staticmethod
     def generator_iter_mode_3(my_list):
         """
@@ -59,7 +63,7 @@ class Generators:
             len_list_ant = len(temp_list) #n
             temp_list = temp_list[temp_list['words'] != word ].reset_index(drop=True) #n^2
             value = int(len_list_ant) - len(temp_list)  #n
-            yield word,value #n
+            yield word,value
     
     
     

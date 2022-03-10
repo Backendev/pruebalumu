@@ -6,15 +6,11 @@ def generate_grafics(time_results):
     list_times_mode_1 = [v['mode_1']['time'] for v in [kv for ki,kv in time_results.items()]]
     list_times_mode_2 = [v['mode_2']['time'] for v in [kv for ki,kv in time_results.items()]]
     list_times_mode_3 = [v['mode_3']['time'] for v in [kv for ki,kv in time_results.items()]]
-    print("_"*10)
-    print(list_times_mode_1)
-    print("_"*10)
-    print(list_times_mode_2)
-    print("_"*10)
-    print(list_times_mode_3)
-    plt.plot([i for i in range(0,list_times_mode_count)],list_times_mode_3,"r", label='Mode 3')
+
+    
     plt.plot([i for i in range(0,list_times_mode_count)],list_times_mode_1,"g", label='Mode 1')
     plt.plot([i for i in range(0,list_times_mode_count)],list_times_mode_2,"y", label='Mode 2')
+    plt.plot([i for i in range(0,list_times_mode_count)],list_times_mode_3,"r", label='Mode 3')
     plt.xlabel('Inputs')
     plt.ylabel('Time')
     plt.title("Complexity Time-inputs Modes")
