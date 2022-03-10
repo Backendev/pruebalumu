@@ -48,11 +48,11 @@ Framework para endpoint Api : FastApi = 0.75.0
 
 Crear un punto de acceso para diferentes generadores los cuales proporcionan 3 soluciones con enfoques diferentes y testear varios sets de datos con tamaños exponenciales para ver como se comportan cada una de las soluciones planteadas, las 3 soluciones se plantean de la siguiente manera:
 
-**-1:** Ciclo condicional en donde se eliminen todas los elementos de la lista que coincidan con el primer elemento de esta, creando una nueva, usando una compresión de listas.
+**-1:** Ciclo condicional en donde se eliminen todos los elementos de la lista que coincidan con el primer elemento de esta, creando una nueva, usando una compresión de listas.
 
 Complejidad algorítmica: n²
 
-**-2:** Ciclo condicional en donde se convierte la lista de elementos en una cadena de texto y se usa la técnica de tokenizacion para hallar las coincidencias por medio de expresiones regulares y crear una lista nueva sin todas los elementos coincidentes por cada palabra
+**-2:** Ciclo condicional en donde se convierte la lista de elementos en una cadena de texto y se usa la técnica de tokenizacion para hallar las coincidencias por medio de expresiones regulares y crear una lista nueva sin los elementos coincidentes por cada palabra
 
 Complejidad algorítmica: n²
 
@@ -128,23 +128,62 @@ pruebalumu
 
 **Como usar:**
 
-**-Configuracion:**
+**Crear Entorno virtual para ejecución**
+
+**Unix -MacOs**
+
+Crear Entorno
+```
+python3 -m venv env
+```
+
+
+Activar entorno:
+```
+source env/bin/activate
+```
+
+Instalar dependencias
+```
+python -m pip install -r requirements.txt
+```
+**Windows**
+
+Crear Entorno
+
+```
+py -m venv env
+```
+Activar entorno:
+```
+.\env\Scripts\activate
+```
+Instalar dependencias
+```
+py -m pip install -r requirements.txt
+```
+
+
+**-🛠️Configuracion:**
 
 en el modulo config.py puede encontrar el constructor de la Clase Config(): en el cual puede editar el puerto y el host sobre los cuales va a correr la aplicación:
+```
+class Config():
+    def __init__(self):
+        self.host = "localhost" #Ingresar direccion sin protocolo
+        self.port = 3000
 
-![](Aspose.Words.5de0fed4-0023-4ffb-9573-2f1400665fea.001.png)
+```
 
 
 
 
 
 
-
-
-**-Servir la aplicación:**
-
+**-💻Servir la aplicación:**
+```
 python main.py
-
+```
 Con esto la aplicación quedara a la escucha 
 
 **-Metodos y rutas:**
@@ -152,27 +191,27 @@ Con esto la aplicación quedara a la escucha
 Solo se tiene la ruta raiz “/” y acepta solo el metodo POST
 
 
-**-Enviar datos:**
+**-📄Enviar datos:**
 
 Se puede usar algún servicio como Postman o hacer una petición curl al host y al puerto configurados por defecto es:
 
-[http://localhost:3000]()
+[http://localhost:3000](http://localhost:3000)
 
 **Parametros aceptados:**
 
 -data(str) : las palabras que se van a buscar cada una separada por un espacio de la otra
 
--mode(int)[1-2-3] : el numero de la solución que se va probar se aceptan 1,2 o 3 
+-mode(int)[1-2-3] : el numero de la solución que se va probar se aceptan 1,2 o 3 -Este parametro es opcional si no se envia se tomara por defecto el modo 1 (mas rapido en pruebas)-
 
 
 puede consultar esta documentación en la ruta /docs por defecto
 
-[http://localhost:3000\[/docs\]()](http://localhost:3000/docs)
+[http://localhost:3000/docs](http://localhost:3000/docs)
 
 El endpoint debe devolver una lista de diccionarios con los resultados de cada palabra y la cantidad de coincidencias encontradas en el texto enviado
 
 
-**Ejecutar pruebas de relacion tiempo-Cantidad de entradas**
+**📊Ejecutar pruebas de relacion tiempo-Cantidad de entradas**
 
 En este modulo se envia una cantidad de casos que seran palabras generadas de manera aleatoria con una cantidad aleatoria de repeticiones dentro de un texto, cada una separada por un espacio
 
@@ -189,16 +228,19 @@ El resultado sera exportado en 2 graficas:
 **2-time\_inputs\_foreach\_modes.png** – Grafica lineal con cada solucion por separado y una tabla con el tiempo maximo, promedio y minimo alcanzado
 
 
-**Ejecutar:**
-
-python  complexity\_analisys.py -c *cantidad de casos* -i *cantidad de iteraciones*
-
-python  complexity\_analisys.py --cases *cantidad de casos* --iter *cantidad de iteraciones*
+**🚀Ejecutar:**
+```
+python  complexity_analisys.py -c *cantidad de casos* -i *cantidad de iteraciones*
+```
+```
+python  complexity_analisys.py --cases *cantidad de casos* --iter *cantidad de iteraciones*
+```
 
 **Ejemplo:**
 
-python  complexity\_analisys.py --cases 50 --iter 10
+```
+python  complexity_analisys.py --cases 50 --iter 10
+```
 
-
-
-
+**Nota**
+La solucion modo 1 fue la que mejores resultados obtuvo y es la que se deja por defecto si no se envia parametro mode en la petición
