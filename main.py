@@ -23,7 +23,7 @@ class Aplication():
 
 
         @self.app.post('/')
-        async def index(data,mode=1):
+        async def index(data,mode="1"):
             """
                 Endpoint unique path 
                 parameters:
